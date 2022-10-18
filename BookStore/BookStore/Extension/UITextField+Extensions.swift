@@ -20,4 +20,8 @@ extension UITextField {
         self.leftView = self.createPaddingView(width)
         self.leftViewMode = leftViewMode
     }
+    
+    var textOrEmpty: String {
+        self.text ?? ""
+    }
 }

@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import CoreData
 
 final class BookRegistViewController: UIViewController {
     
@@ -148,13 +149,14 @@ extension BookRegistViewController {
             view.snp.makeConstraints { $0.height.equalTo(50) }
         }
         self.contentStackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(20)
+            make.top.equalTo(self.view.safeAreaLayoutGuide).offset(20)
             make.leading.trailing.equalToSuperview().inset(20)
         }
         
         self.registButton.snp.makeConstraints { make in
             make.height.equalTo(50)
-            make.bottom.leading.trailing.equalToSuperview().inset(20)
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide)
         }
     }
     
@@ -175,17 +177,52 @@ extension BookRegistViewController {
     @objc
     private func didTapRegistButton(_ sender: UIButton) {
         if self.canRegistBook() {
-            self.dismiss(animated: true)
+            self.registBook(BookModel(
+                name: self.bookNameTextField.textOrEmpty,
+                category: self.bookCategoryTextField.textOrEmpty,
+                publishedDate: self.bookPublishDateTextField.textOrEmpty,
+                price: self.bookPriceTextField.textOrEmpty
+            )) { [weak self] in
+                self?.navigationController?.popViewController(animated: true)
+            }
+            
         } else {
             self.showAlert("빠진 내용들을 기입해주세요!")
         }
     }
     
+    private func registBook(_ book: BookModel, _ completion: @escaping (() -> Void)) {
+            guard
+                let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else {
+                print("return")
+                return
+            }
+            let context = sceneDelegate.persistentContainer.viewContext
+            let entity = NSEntityDescription.entity(forEntityName: "Book", in: context)
+            if let entity = entity {
+                let bookStore = NSManagedObject(entity: entity, insertInto: context)
+                bookStore.setValue(book.name, forKey: "name")
+                bookStore.setValue(book.price, forKey: "price")
+                bookStore.setValue(book.category, forKey: "category")
+                bookStore.setValue(book.publishedDate, forKey: "publishedDate")
+                
+                do {
+                    try context.save()
+                    print("성공적 save")
+                    completion()
+                } catch (let error) {
+                    print(error.localizedDescription)
+                }
+            } else {
+                print("entity empty")
+            }
+    }
+    
     private func canRegistBook() -> Bool {
-        let bookName = self.bookNameTextField.text ?? ""
-        let category = self.bookCategoryTextField.text ?? ""
-        let publishedDate = self.bookPublishDateTextField.text ?? ""
-        let price = self.bookPriceTextField.text ?? ""
+        let bookName = self.bookNameTextField.textOrEmpty
+        let category = self.bookCategoryTextField.textOrEmpty
+        let publishedDate = self.bookPublishDateTextField.textOrEmpty
+        let price = self.bookPriceTextField.textOrEmpty
         if !bookName.isEmpty && !category.isEmpty && !publishedDate.isEmpty && !price.isEmpty {
             return true
         } else { return false }

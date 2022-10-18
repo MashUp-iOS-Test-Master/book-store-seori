@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import CoreData
 
 final class BookListViewController: UIViewController {
     
@@ -60,9 +61,16 @@ final class BookListViewController: UIViewController {
         return label
     }()
     
+    
+    // MARK: - Properties
+    private var bookModels: [Book] {
+        didSet { self.listCollectionView.reloadData() }
+    }
+    
     // MARK: - LifeCycles
     
     init() {
+        self.bookModels = []
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -73,9 +81,28 @@ final class BookListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .systemGroupedBackground
+        self.navigationController?.navigationBar.isHidden = true
         self.setViewHierarchy()
         self.setViewConstraints()
+        self.registerCells(BookListCollectionViewCell.self, at: self.listCollectionView)
+        self.configure(self.listCollectionView)
         self.bind(registButton: self.registButton)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard
+            let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else {
+            return
+        }
+        let context = sceneDelegate.persistentContainer.viewContext
+        
+        do {
+            let contact = try context.fetch(Book.fetchRequest()) as? [Book] ?? []
+            self.bookModels = contact
+        } catch (let error) {
+            print(error.localizedDescription)
+        }
     }
     
     deinit { debugPrint("\(self) deinit") }
@@ -93,7 +120,7 @@ extension BookListViewController {
     @objc
     private func didTapRegistButton(_ sender: UIButton) {
         let registViewController = BookRegistViewController()
-        self.present(registViewController, animated: true)
+        self.navigationController?.pushViewController(registViewController, animated: true)
     }
     
     private func configure(_ collectionView: UICollectionView) {
@@ -155,14 +182,17 @@ extension BookListViewController: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        return 0
+        self.bookModels.count
     }
     
     func collectionView(
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
-        return .init()
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: BookListCollectionViewCell.self), for: indexPath) as? BookListCollectionViewCell else { return .init() }
+        guard let book = self.bookModels[safe: indexPath.item] else { return .init() }
+        cell.configure(bookName: book.name ?? "", category: book.category ?? "", date: book.publishedDate ?? "", price: book.price ?? "")
+        return cell
     }
 }
 
@@ -170,6 +200,12 @@ extension BookListViewController: UICollectionViewDataSource {
 
 extension BookListViewController: UICollectionViewDelegate {
     
+}
+
+extension BookListViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        CGSize(width: collectionView.bounds.width, height: 74)
+    }
 }
 
 

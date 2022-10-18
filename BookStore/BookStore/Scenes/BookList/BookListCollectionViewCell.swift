@@ -46,7 +46,7 @@ final class BookListCollectionViewCell: UICollectionViewCell {
     
     // MARK: - LifeCycles
     
-    init() {
+    override init(frame: CGRect) {
         super.init(frame: .zero)
         self.configureLabels(
             self.bookNameLabel,

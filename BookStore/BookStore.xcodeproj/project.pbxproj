@@ -25,6 +25,9 @@
 		A260672328FEB32E00BC8761 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A260672228FEB32E00BC8761 /* Array+Extensions.swift */; };
 		A260672528FEB57200BC8761 /* BookStoreNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A260672428FEB57200BC8761 /* BookStoreNumberFormatter.swift */; };
 		A260672728FEEA7200BC8761 /* BookStoreDateFormmater.swift in Sources */ = {isa = PBXBuildFile; fileRef = A260672628FEEA7200BC8761 /* BookStoreDateFormmater.swift */; };
+		A260672F28FEF2FE00BC8761 /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = A260672E28FEF2FE00BC8761 /* UserDefault.swift */; };
+		A260673128FEF30800BC8761 /* BookRegistModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A260673028FEF30800BC8761 /* BookRegistModel.swift */; };
+		A260673528FEFC8500BC8761 /* BookStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A260673328FEFC8500BC8761 /* BookStore.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +69,9 @@
 		A260672228FEB32E00BC8761 /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		A260672428FEB57200BC8761 /* BookStoreNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookStoreNumberFormatter.swift; sourceTree = "<group>"; };
 		A260672628FEEA7200BC8761 /* BookStoreDateFormmater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookStoreDateFormmater.swift; sourceTree = "<group>"; };
+		A260672E28FEF2FE00BC8761 /* UserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
+		A260673028FEF30800BC8761 /* BookRegistModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookRegistModel.swift; sourceTree = "<group>"; };
+		A260673428FEFC8500BC8761 /* BookStore.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BookStore.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +123,7 @@
 		A223083928FE6AB800B1E4AE /* BookStore */ = {
 			isa = PBXGroup;
 			children = (
+				A260672D28FEF2F100BC8761 /* Local */,
 				A260672B28FEF26800BC8761 /* Model */,
 				A260672928FEF24B00BC8761 /* Common */,
 				A260672828FEF23700BC8761 /* Scenes */,
@@ -189,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				A260672028FEB24800BC8761 /* BookCategory.swift */,
+				A260673028FEF30800BC8761 /* BookRegistModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -199,6 +207,15 @@
 				A260671A28FE9DA400BC8761 /* BookRegistViewController.swift */,
 			);
 			path = BookRegist;
+			sourceTree = "<group>";
+		};
+		A260672D28FEF2F100BC8761 /* Local */ = {
+			isa = PBXGroup;
+			children = (
+				A260672E28FEF2FE00BC8761 /* UserDefault.swift */,
+				A260673328FEFC8500BC8761 /* BookStore.xcdatamodeld */,
+			);
+			path = Local;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -339,6 +356,9 @@
 			files = (
 				A260672128FEB24800BC8761 /* BookCategory.swift in Sources */,
 				A260672328FEB32E00BC8761 /* Array+Extensions.swift in Sources */,
+				A260673528FEFC8500BC8761 /* BookStore.xcdatamodeld in Sources */,
+				A260673128FEF30800BC8761 /* BookRegistModel.swift in Sources */,
+				A260672F28FEF2FE00BC8761 /* UserDefault.swift in Sources */,
 				A223083F28FE6AB800B1E4AE /* BookListViewController.swift in Sources */,
 				A260671F28FEA2BD00BC8761 /* UITextField+Extensions.swift in Sources */,
 				A223083B28FE6AB800B1E4AE /* AppDelegate.swift in Sources */,
@@ -693,6 +713,19 @@
 			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		A260673328FEFC8500BC8761 /* BookStore.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A260673428FEFC8500BC8761 /* BookStore.xcdatamodel */,
+			);
+			currentVersion = A260673428FEFC8500BC8761 /* BookStore.xcdatamodel */;
+			path = BookStore.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = A223082F28FE6AB800B1E4AE /* Project object */;
 }
