@@ -15,34 +15,24 @@ final class BookRegistViewController: UIViewController {
     private let bookNameTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "책 이름을 기입해주세요"
-        textField.backgroundColor = .white
-        textField.layer.cornerRadius = 10
-        textField.layer.borderColor = UIColor.gray.cgColor
-        textField.layer.borderWidth = 1
         return textField
     }()
     
     private let bookCategoryTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "책 카테고리를 선택해주세요"
-        textField.backgroundColor = .white
-        textField.layer.cornerRadius = 10
         return textField
     }()
     
     private let bookPublishDateTextField: UITextField = {
         let textField = UITextField()
-        textField.backgroundColor = .white
         textField.placeholder = "책의 출판 일을 기입해주세요"
-        textField.layer.cornerRadius = 10
         return textField
     }()
     
     private let bookPriceTextField: UITextField = {
         let textField = UITextField()
-        textField.backgroundColor = .white
         textField.placeholder = "책의 가격을 기입해주세요"
-        textField.layer.cornerRadius = 10
         textField.keyboardType = .numberPad
         return textField
     }()
@@ -184,7 +174,28 @@ extension BookRegistViewController {
     
     @objc
     private func didTapRegistButton(_ sender: UIButton) {
-        self.dismiss(animated: true)
+        if self.canRegistBook() {
+            self.dismiss(animated: true)
+        } else {
+            self.showAlert("빠진 내용들을 기입해주세요!")
+        }
+    }
+    
+    private func canRegistBook() -> Bool {
+        let bookName = self.bookNameTextField.text ?? ""
+        let category = self.bookCategoryTextField.text ?? ""
+        let publishedDate = self.bookPublishDateTextField.text ?? ""
+        let price = self.bookPriceTextField.text ?? ""
+        if !bookName.isEmpty && !category.isEmpty && !publishedDate.isEmpty && !price.isEmpty {
+            return true
+        } else { return false }
+    }
+    
+    private func showAlert(_ title: String) {
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+        alert.addAction(okAction)
+        self.present(alert, animated: true)
     }
     
     private func didSelectCategory(at index: Int) {
