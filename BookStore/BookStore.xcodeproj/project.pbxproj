@@ -17,6 +17,7 @@
 		A223085E28FE6ABA00B1E4AE /* BookStoreUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A223085D28FE6ABA00B1E4AE /* BookStoreUITestsLaunchTests.swift */; };
 		A260671428FE7BD700BC8761 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = A260671328FE7BD700BC8761 /* SnapKit */; };
 		A260671628FE7C0300BC8761 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A260671528FE7C0300BC8761 /* UIView+Extensions.swift */; };
+		A260671928FE7F6800BC8761 /* BookListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A260671828FE7F6800BC8761 /* BookListCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		A223085B28FE6ABA00B1E4AE /* BookStoreUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookStoreUITests.swift; sourceTree = "<group>"; };
 		A223085D28FE6ABA00B1E4AE /* BookStoreUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookStoreUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A260671528FE7C0300BC8761 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		A260671828FE7F6800BC8761 /* BookListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookListCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +110,7 @@
 				A223084328FE6ABA00B1E4AE /* Assets.xcassets */,
 				A223084528FE6ABA00B1E4AE /* LaunchScreen.storyboard */,
 				A223084828FE6ABA00B1E4AE /* Info.plist */,
+				A260671828FE7F6800BC8761 /* BookListCollectionViewCell.swift */,
 			);
 			path = BookStore;
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 				A223083F28FE6AB800B1E4AE /* BookListViewController.swift in Sources */,
 				A223083B28FE6AB800B1E4AE /* AppDelegate.swift in Sources */,
 				A260671628FE7C0300BC8761 /* UIView+Extensions.swift in Sources */,
+				A260671928FE7F6800BC8761 /* BookListCollectionViewCell.swift in Sources */,
 				A223083D28FE6AB800B1E4AE /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
