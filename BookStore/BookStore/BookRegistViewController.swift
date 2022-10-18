@@ -64,6 +64,8 @@ final class BookRegistViewController: UIViewController {
         return button
     }()
     
+    private let categoryPickerView = UIPickerView()
+    
     // MARK: - Properties
     
     private var contentTextFields: [UITextField] {
@@ -74,6 +76,7 @@ final class BookRegistViewController: UIViewController {
             self.bookPriceTextField
         ]
     }
+    private let categories: [BookCategory]
     
     // MARK: - LifeCycles
     
@@ -84,9 +87,13 @@ final class BookRegistViewController: UIViewController {
         self.setViewsConstraints()
         self.configure(textFields: self.contentTextFields)
         self.bind(self.registButton)
+        self.configure(self.bookCategoryTextField, inputView: self.categoryPickerView)
     }
    
-    init() {
+    init(
+        categories: [BookCategory] = BookCategory.allCases
+    ) {
+        self.categories = categories
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -109,6 +116,12 @@ extension BookRegistViewController {
             textField.layer.borderColor = UIColor.gray.cgColor
             textField.layer.borderWidth = 1
         }
+    }
+    
+    private func configure(_ categoryTextField: UITextField, inputView: UIPickerView) {
+        categoryTextField.inputView = inputView
+        inputView.dataSource = self
+        inputView.delegate = self
     }
     
     private func setViewHierarhcy() {
@@ -138,6 +151,47 @@ extension BookRegistViewController {
     @objc
     private func didTapRegistButton(_ sender: UIButton) {
         self.dismiss(animated: true)
+    }
+    
+    private func didSelectCategory(at index: Int) {
+        guard let selectedCategory = self.categories[safe: index] else { return }
+        self.bookCategoryTextField.text = selectedCategory.title
+    }
+}
+
+// MARK: - UIPickerViewDataSource
+
+extension BookRegistViewController: UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        1
+    }
+    
+    func pickerView(
+        _ pickerView: UIPickerView,
+        numberOfRowsInComponent component: Int
+    ) -> Int {
+        self.categories.count
+    }
+    
+    func pickerView(
+        _ pickerView: UIPickerView,
+        titleForRow row: Int,
+        forComponent component: Int
+    ) -> String? {
+        self.categories[safe: row]?.title
+    }
+    
+}
+
+// MARK: - UIPickerViewDelegate
+
+extension BookRegistViewController: UIPickerViewDelegate {
+    func pickerView(
+        _ pickerView: UIPickerView,
+        didSelectRow row: Int,
+        inComponent component: Int
+    ) {
+        self.didSelectCategory(at: row)
     }
 }
 
