@@ -43,6 +43,7 @@ final class BookRegistViewController: UIViewController {
         textField.backgroundColor = .white
         textField.placeholder = "책의 가격을 기입해주세요"
         textField.layer.cornerRadius = 10
+        textField.keyboardType = .numberPad
         return textField
     }()
     
@@ -65,6 +66,7 @@ final class BookRegistViewController: UIViewController {
     }()
     
     private let categoryPickerView = UIPickerView()
+    private let datePickerView = UIDatePicker()
     
     // MARK: - Properties
     
@@ -77,6 +79,8 @@ final class BookRegistViewController: UIViewController {
         ]
     }
     private let categories: [BookCategory]
+    private let dateFormatter: BookStoreDateFormmater
+    private let numberFormatter: BookStoreNumberFormatter
     
     // MARK: - LifeCycles
     
@@ -87,13 +91,20 @@ final class BookRegistViewController: UIViewController {
         self.setViewsConstraints()
         self.configure(textFields: self.contentTextFields)
         self.bind(self.registButton)
+        self.configure(self.bookPublishDateTextField, inputView: self.datePickerView)
         self.configure(self.bookCategoryTextField, inputView: self.categoryPickerView)
+        self.bookPriceTextField.delegate = self
+        self.bind(self.view)
     }
    
     init(
-        categories: [BookCategory] = BookCategory.allCases
+        categories: [BookCategory] = BookCategory.allCases,
+        dateFormatter: BookStoreDateFormmater = BookStoreDateFormmater(),
+        numberFormatter: BookStoreNumberFormatter = BookStoreNumberFormatter()
     ) {
         self.categories = categories
+        self.dateFormatter = dateFormatter
+        self.numberFormatter = numberFormatter
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -124,6 +135,19 @@ extension BookRegistViewController {
         inputView.delegate = self
     }
     
+    private func configure(_ dateTextField: UITextField, inputView: UIDatePicker) {
+        dateTextField.inputView = inputView
+        inputView.preferredDatePickerStyle = .wheels
+        inputView.datePickerMode = .date
+        inputView.addTarget(self, action: #selector(self.didEndEditing(datePicker:)), for: .allEvents)
+    }
+    
+    @objc
+    private func didEndEditing(datePicker: UIDatePicker) {
+        let convertedDate = self.dateFormatter.convert(date: datePicker.date)
+        self.bookPublishDateTextField.text = convertedDate
+    }
+    
     private func setViewHierarhcy() {
         self.contentStackView.addArrangedSubviews(self.contentTextFields)
         self.view.addSubviews(self.contentStackView, self.registButton)
@@ -146,6 +170,16 @@ extension BookRegistViewController {
     
     private func bind(_ registButton: UIButton) {
         registButton.addTarget(self, action: #selector(didTapRegistButton(_:)), for: .touchUpInside)
+    }
+    
+    private func bind(_ view: UIView) {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapView))
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc
+    private func didTapView() {
+        self.view.endEditing(true)
     }
     
     @objc
@@ -229,3 +263,13 @@ struct BookRegistViewControllerPreviews: PreviewProvider {
 }
 
 #endif
+
+
+extension BookRegistViewController: UITextFieldDelegate {
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        let number = Int(textField.text ?? "") ?? 0
+        guard let decimalNumber = self.numberFormatter.convert(number: number) else { return }
+        self.bookPriceTextField.text = decimalNumber
+    }
+}

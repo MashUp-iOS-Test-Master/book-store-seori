@@ -23,6 +23,8 @@
 		A260671F28FEA2BD00BC8761 /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A260671E28FEA2BD00BC8761 /* UITextField+Extensions.swift */; };
 		A260672128FEB24800BC8761 /* BookCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A260672028FEB24800BC8761 /* BookCategory.swift */; };
 		A260672328FEB32E00BC8761 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A260672228FEB32E00BC8761 /* Array+Extensions.swift */; };
+		A260672528FEB57200BC8761 /* BookStoreNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A260672428FEB57200BC8761 /* BookStoreNumberFormatter.swift */; };
+		A260672728FEEA7200BC8761 /* BookStoreDateFormmater.swift in Sources */ = {isa = PBXBuildFile; fileRef = A260672628FEEA7200BC8761 /* BookStoreDateFormmater.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +64,8 @@
 		A260671E28FEA2BD00BC8761 /* UITextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
 		A260672028FEB24800BC8761 /* BookCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCategory.swift; sourceTree = "<group>"; };
 		A260672228FEB32E00BC8761 /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
+		A260672428FEB57200BC8761 /* BookStoreNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookStoreNumberFormatter.swift; sourceTree = "<group>"; };
+		A260672628FEEA7200BC8761 /* BookStoreDateFormmater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookStoreDateFormmater.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +127,8 @@
 				A260671828FE7F6800BC8761 /* BookListCollectionViewCell.swift */,
 				A260671A28FE9DA400BC8761 /* BookRegistViewController.swift */,
 				A260672028FEB24800BC8761 /* BookCategory.swift */,
+				A260672428FEB57200BC8761 /* BookStoreNumberFormatter.swift */,
+				A260672628FEEA7200BC8761 /* BookStoreDateFormmater.swift */,
 			);
 			path = BookStore;
 			sourceTree = "<group>";
@@ -300,6 +306,8 @@
 				A260671928FE7F6800BC8761 /* BookListCollectionViewCell.swift in Sources */,
 				A260671D28FEA0BC00BC8761 /* UIStackView+Extensions.swift in Sources */,
 				A223083D28FE6AB800B1E4AE /* SceneDelegate.swift in Sources */,
+				A260672528FEB57200BC8761 /* BookStoreNumberFormatter.swift in Sources */,
+				A260672728FEEA7200BC8761 /* BookStoreDateFormmater.swift in Sources */,
 				A260671B28FE9DA400BC8761 /* BookRegistViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
