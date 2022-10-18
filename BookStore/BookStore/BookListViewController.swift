@@ -159,3 +159,38 @@ extension BookListViewController: UICollectionViewDataSource {
 extension BookListViewController: UICollectionViewDelegate {
     
 }
+
+
+// MARK: - Preview
+
+#if DEBUG
+import SwiftUI
+
+struct BookListViewControllerPresentable: UIViewControllerRepresentable {
+    typealias UIViewControllerType = BookListViewController
+    
+    func makeUIViewController(context: Context) -> BookListViewController {
+        BookListViewController()
+    }
+    
+    func updateUIViewController(
+        _ uiViewController: BookListViewController,
+        context: Context
+    ) {
+        
+    }
+}
+
+struct BookListViewControllerPreviews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            BookListViewControllerPresentable()
+                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
+            BookListViewControllerPresentable()
+                .previewDevice(PreviewDevice(rawValue: "iPhone 12"))
+        }
+       
+    }
+}
+
+#endif
