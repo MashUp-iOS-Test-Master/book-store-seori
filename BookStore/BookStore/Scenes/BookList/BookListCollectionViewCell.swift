@@ -54,6 +54,7 @@ final class BookListCollectionViewCell: UICollectionViewCell {
             self.bookPublishDateLabel,
             self.bookPriceLabel
         )
+        self.backgroundColor = .white
         self.setViewHierarchy()
         self.setViewConstraints()
     }

@@ -43,7 +43,7 @@ final class BookListViewController: UIViewController {
             frame: .zero,
             collectionViewLayout: collectionViewFlowLayout
         )
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .systemGroupedBackground
         return collectionView
     }()
     
@@ -56,7 +56,6 @@ final class BookListViewController: UIViewController {
     private let totalPriceLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.text = "가격합계 : "
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         return label
     }()
@@ -64,12 +63,20 @@ final class BookListViewController: UIViewController {
     
     // MARK: - Properties
     private var bookModels: [Book] {
-        didSet { self.listCollectionView.reloadData() }
+        didSet {
+            self.listCollectionView.reloadData()
+            let prices = self.bookModels.compactMap(\.price)
+            self.updateTotalPrice(prices)
+        }
     }
+    private let numberFormatter: BookStoreNumberFormatter
     
     // MARK: - LifeCycles
     
-    init() {
+    init(
+        numberFormatter: BookStoreNumberFormatter = BookStoreNumberFormatter()
+    ) {
+        self.numberFormatter = numberFormatter
         self.bookModels = []
         super.init(nibName: nil, bundle: nil)
     }
@@ -112,6 +119,13 @@ final class BookListViewController: UIViewController {
 // MARK: - Private functions
 
 extension BookListViewController {
+
+    private func updateTotalPrice(_ prices: [String]) {
+        let priceInt = prices.compactMap(self.numberFormatter.convert(decimalString:))
+        let totalPrice = priceInt.reduce(0) { $0 + $1 }
+        guard let totalPriceDeimalString = self.numberFormatter.convert(number: totalPrice) else { return }
+        self.totalPriceLabel.text = "총 가격 : \(totalPriceDeimalString) 원"
+    }
     
     private func bind(registButton: UIButton) {
         registButton.addTarget(self, action: #selector(self.didTapRegistButton(_:)), for: .touchUpInside)
@@ -146,9 +160,8 @@ extension BookListViewController {
     
     private func setViewConstraints() {
         self.navigationView.snp.makeConstraints { make in
-            make.top.equalTo(self.view.layoutMarginsGuide)
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(50)
+            make.top.leading.trailing.equalToSuperview()
+            make.height.equalTo(100)
         }
         self.listCollectionView.snp.makeConstraints { make in
             make.top.equalTo(self.navigationView.snp.bottom).offset(10)
@@ -165,10 +178,11 @@ extension BookListViewController {
         }
         
         self.navigationTitle.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+            make.top.equalTo(self.view.safeAreaLayoutGuide).offset(10)
+            make.centerX.equalToSuperview()
         }
         self.registButton.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
+            make.centerY.equalTo(self.navigationTitle.snp.centerY)
             make.trailing.equalToSuperview().inset(30)
         }
     }

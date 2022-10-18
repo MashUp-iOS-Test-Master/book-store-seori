@@ -18,6 +18,13 @@ struct BookStoreNumberFormatter {
     }
     
     func convert(number: Int) -> String? {
-        self.numberFormatter.string(from: NSNumber(value: number))
+        self.numberFormatter.string(for: number)
     }
+    
+    func convert(decimalString: String) -> Int? {
+        let numbers = decimalString.components(separatedBy: ",")
+        let number = numbers.joined()
+        return Int(number)
+    }
+   
 }
