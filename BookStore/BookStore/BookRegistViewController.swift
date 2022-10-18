@@ -64,9 +64,18 @@ final class BookRegistViewController: UIViewController {
         return button
     }()
     
+    // MARK: - Properties
+    
     private var contentTextFields: [UITextField] {
-        return [self.bookNameTextField, self.bookCategoryTextField, self.bookPublishDateTextField, self.bookPriceTextField]
+        return [
+            self.bookNameTextField,
+            self.bookCategoryTextField,
+            self.bookPublishDateTextField,
+            self.bookPriceTextField
+        ]
     }
+    
+    // MARK: - LifeCycles
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,7 +83,23 @@ final class BookRegistViewController: UIViewController {
         self.setViewHierarhcy()
         self.setViewsConstraints()
         self.configure(textFields: self.contentTextFields)
+        self.bind(self.registButton)
     }
+   
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit { debugPrint("\(self) deinit") }
+}
+
+// MARK: - Private functions
+
+extension BookRegistViewController {
     
     private func configure(textFields: [UITextField]) {
         textFields.forEach { textField in
@@ -106,12 +131,13 @@ final class BookRegistViewController: UIViewController {
         }
     }
     
-    init() {
-        super.init(nibName: nil, bundle: nil)
+    private func bind(_ registButton: UIButton) {
+        registButton.addTarget(self, action: #selector(didTapRegistButton(_:)), for: .touchUpInside)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    @objc
+    private func didTapRegistButton(_ sender: UIButton) {
+        self.dismiss(animated: true)
     }
 }
 

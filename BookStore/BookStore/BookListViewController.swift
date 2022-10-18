@@ -10,7 +10,7 @@ import SnapKit
 
 final class BookListViewController: UIViewController {
     
-    // MARK: UIComponents
+    // MARK: - UIComponents
     
     private let navigationView: UIView = {
         let view = UIView()
@@ -60,7 +60,7 @@ final class BookListViewController: UIViewController {
         return label
     }()
     
-    // MARK: LifeCycles
+    // MARK: - LifeCycles
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -75,6 +75,7 @@ final class BookListViewController: UIViewController {
         self.view.backgroundColor = .systemGroupedBackground
         self.setViewHierarchy()
         self.setViewConstraints()
+        self.bind(registButton: self.registButton)
     }
     
     deinit { debugPrint("\(self) deinit") }
@@ -84,6 +85,17 @@ final class BookListViewController: UIViewController {
 // MARK: - Private functions
 
 extension BookListViewController {
+    
+    private func bind(registButton: UIButton) {
+        registButton.addTarget(self, action: #selector(self.didTapRegistButton(_:)), for: .touchUpInside)
+    }
+    
+    @objc
+    private func didTapRegistButton(_ sender: UIButton) {
+        let registViewController = BookRegistViewController()
+        self.present(registViewController, animated: true)
+    }
+    
     private func configure(_ collectionView: UICollectionView) {
         collectionView.dataSource = self
         collectionView.delegate = self
