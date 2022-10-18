@@ -15,6 +15,7 @@
 		A223085228FE6ABA00B1E4AE /* BookStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A223085128FE6ABA00B1E4AE /* BookStoreTests.swift */; };
 		A223085C28FE6ABA00B1E4AE /* BookStoreUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A223085B28FE6ABA00B1E4AE /* BookStoreUITests.swift */; };
 		A223085E28FE6ABA00B1E4AE /* BookStoreUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A223085D28FE6ABA00B1E4AE /* BookStoreUITestsLaunchTests.swift */; };
+		A260671428FE7BD700BC8761 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = A260671328FE7BD700BC8761 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A260671428FE7BD700BC8761 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +142,9 @@
 			dependencies = (
 			);
 			name = BookStore;
+			packageProductDependencies = (
+				A260671328FE7BD700BC8761 /* SnapKit */,
+			);
 			productName = BookStore;
 			productReference = A223083728FE6AB800B1E4AE /* BookStore.app */;
 			productType = "com.apple.product-type.application";
@@ -212,6 +217,9 @@
 				Base,
 			);
 			mainGroup = A223082E28FE6AB800B1E4AE;
+			packageReferences = (
+				A260671228FE7BD700BC8761 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = A223083828FE6AB800B1E4AE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -582,6 +590,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A260671228FE7BD700BC8761 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 5.6.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A260671328FE7BD700BC8761 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A260671228FE7BD700BC8761 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A223082F28FE6AB800B1E4AE /* Project object */;
 }
