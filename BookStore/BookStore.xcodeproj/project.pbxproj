@@ -18,6 +18,9 @@
 		A260671428FE7BD700BC8761 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = A260671328FE7BD700BC8761 /* SnapKit */; };
 		A260671628FE7C0300BC8761 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A260671528FE7C0300BC8761 /* UIView+Extensions.swift */; };
 		A260671928FE7F6800BC8761 /* BookListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A260671828FE7F6800BC8761 /* BookListCollectionViewCell.swift */; };
+		A260671B28FE9DA400BC8761 /* BookRegistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A260671A28FE9DA400BC8761 /* BookRegistViewController.swift */; };
+		A260671D28FEA0BC00BC8761 /* UIStackView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A260671C28FEA0BC00BC8761 /* UIStackView+Extensions.swift */; };
+		A260671F28FEA2BD00BC8761 /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A260671E28FEA2BD00BC8761 /* UITextField+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +55,9 @@
 		A223085D28FE6ABA00B1E4AE /* BookStoreUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookStoreUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A260671528FE7C0300BC8761 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		A260671828FE7F6800BC8761 /* BookListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookListCollectionViewCell.swift; sourceTree = "<group>"; };
+		A260671A28FE9DA400BC8761 /* BookRegistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookRegistViewController.swift; sourceTree = "<group>"; };
+		A260671C28FEA0BC00BC8761 /* UIStackView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extensions.swift"; sourceTree = "<group>"; };
+		A260671E28FEA2BD00BC8761 /* UITextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +117,7 @@
 				A223084528FE6ABA00B1E4AE /* LaunchScreen.storyboard */,
 				A223084828FE6ABA00B1E4AE /* Info.plist */,
 				A260671828FE7F6800BC8761 /* BookListCollectionViewCell.swift */,
+				A260671A28FE9DA400BC8761 /* BookRegistViewController.swift */,
 			);
 			path = BookStore;
 			sourceTree = "<group>";
@@ -136,6 +143,8 @@
 			isa = PBXGroup;
 			children = (
 				A260671528FE7C0300BC8761 /* UIView+Extensions.swift */,
+				A260671C28FEA0BC00BC8761 /* UIStackView+Extensions.swift */,
+				A260671E28FEA2BD00BC8761 /* UITextField+Extensions.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -277,10 +286,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				A223083F28FE6AB800B1E4AE /* BookListViewController.swift in Sources */,
+				A260671F28FEA2BD00BC8761 /* UITextField+Extensions.swift in Sources */,
 				A223083B28FE6AB800B1E4AE /* AppDelegate.swift in Sources */,
 				A260671628FE7C0300BC8761 /* UIView+Extensions.swift in Sources */,
 				A260671928FE7F6800BC8761 /* BookListCollectionViewCell.swift in Sources */,
+				A260671D28FEA0BC00BC8761 /* UIStackView+Extensions.swift in Sources */,
 				A223083D28FE6AB800B1E4AE /* SceneDelegate.swift in Sources */,
+				A260671B28FE9DA400BC8761 /* BookRegistViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
