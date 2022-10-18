@@ -16,6 +16,7 @@
 		A223085C28FE6ABA00B1E4AE /* BookStoreUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A223085B28FE6ABA00B1E4AE /* BookStoreUITests.swift */; };
 		A223085E28FE6ABA00B1E4AE /* BookStoreUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A223085D28FE6ABA00B1E4AE /* BookStoreUITestsLaunchTests.swift */; };
 		A260671428FE7BD700BC8761 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = A260671328FE7BD700BC8761 /* SnapKit */; };
+		A260671628FE7C0300BC8761 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A260671528FE7C0300BC8761 /* UIView+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		A223085728FE6ABA00B1E4AE /* BookStoreUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BookStoreUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A223085B28FE6ABA00B1E4AE /* BookStoreUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookStoreUITests.swift; sourceTree = "<group>"; };
 		A223085D28FE6ABA00B1E4AE /* BookStoreUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookStoreUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		A260671528FE7C0300BC8761 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 		A223083928FE6AB800B1E4AE /* BookStore */ = {
 			isa = PBXGroup;
 			children = (
+				A260671728FE7C0600BC8761 /* Extension */,
 				A223083A28FE6AB800B1E4AE /* AppDelegate.swift */,
 				A223083C28FE6AB800B1E4AE /* SceneDelegate.swift */,
 				A223083E28FE6AB800B1E4AE /* BookListViewController.swift */,
@@ -124,6 +127,14 @@
 				A223085D28FE6ABA00B1E4AE /* BookStoreUITestsLaunchTests.swift */,
 			);
 			path = BookStoreUITests;
+			sourceTree = "<group>";
+		};
+		A260671728FE7C0600BC8761 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				A260671528FE7C0300BC8761 /* UIView+Extensions.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,6 +275,7 @@
 			files = (
 				A223083F28FE6AB800B1E4AE /* BookListViewController.swift in Sources */,
 				A223083B28FE6AB800B1E4AE /* AppDelegate.swift in Sources */,
+				A260671628FE7C0300BC8761 /* UIView+Extensions.swift in Sources */,
 				A223083D28FE6AB800B1E4AE /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

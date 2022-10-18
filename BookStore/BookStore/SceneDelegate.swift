@@ -20,7 +20,7 @@ final class SceneDelegate: UIResponder,
         guard let windowScene = (scene as? UIWindowScene) else { return }
         self.window = UIWindow(windowScene: windowScene)
         
-        let rootViewController = ViewController()
+        let rootViewController = BookListViewController()
         self.window?.rootViewController = rootViewController
         self.window?.makeKeyAndVisible()
     }

@@ -6,10 +6,34 @@
 //
 
 import UIKit
+import SnapKit
 
 final class BookListViewController: UIViewController {
     
     // MARK: UIComponents
+    
+    private let navigationView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
+    }()
+    
+    private let navigationTitle: UILabel = {
+        let label = UILabel()
+        label.text = "책 목록"
+        return label
+    }()
+    
+    private let registButton: UIButton = {
+        let button = UIButton()
+        let image = UIImage.init(systemName: "plus")?
+            .withTintColor(
+                .black,
+                renderingMode: .alwaysOriginal
+            )
+        button.setImage(image, for: .normal)
+        return button
+    }()
     
     private let listCollectionView: UICollectionView = {
         let collectionViewFlowLayout = UICollectionViewFlowLayout()
@@ -31,7 +55,8 @@ final class BookListViewController: UIViewController {
     private let totalPriceLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+        label.text = "가격합계 : "
+        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         return label
     }()
     
@@ -47,7 +72,9 @@ final class BookListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .systemPink
+        self.view.backgroundColor = .systemGroupedBackground
+        self.setViewHierarchy()
+        self.setViewConstraints()
     }
     
     deinit { debugPrint("\(self) deinit") }
@@ -71,6 +98,41 @@ extension BookListViewController {
             forCellWithReuseIdentifier: String(describing: cellType.self)
         )
     }
+    
+    private func setViewHierarchy() {
+        self.totalPriceView.addSubviews(self.totalPriceLabel)
+        self.navigationView.addSubviews(self.navigationTitle, self.registButton)
+        self.view.addSubviews(self.listCollectionView, self.totalPriceView, self.navigationView)
+    }
+    
+    private func setViewConstraints() {
+        self.navigationView.snp.makeConstraints { make in
+            make.top.equalTo(self.view.layoutMarginsGuide)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(50)
+        }
+        self.listCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(self.navigationView.snp.bottom).offset(10)
+            make.leading.trailing.equalToSuperview()
+        }
+        self.totalPriceView.snp.makeConstraints { make in
+            make.top.equalTo(self.listCollectionView.snp.bottom).offset(10)
+            make.leading.trailing.bottom.equalToSuperview()
+            make.height.equalTo(80)
+        }
+
+        self.totalPriceLabel.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+        
+        self.navigationTitle.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+        self.registButton.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview().inset(30)
+        }
+    }
 }
 
 
@@ -90,8 +152,6 @@ extension BookListViewController: UICollectionViewDataSource {
     ) -> UICollectionViewCell {
         return .init()
     }
-    
-    
 }
 
 // MARK: - UICollectionViewDelegate
