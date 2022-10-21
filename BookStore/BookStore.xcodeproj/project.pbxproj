@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A21DE72B2902F074001E4C47 /* PersistentContainerable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21DE72A2902F074001E4C47 /* PersistentContainerable.swift */; };
 		A223083B28FE6AB800B1E4AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A223083A28FE6AB800B1E4AE /* AppDelegate.swift */; };
 		A223083D28FE6AB800B1E4AE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A223083C28FE6AB800B1E4AE /* SceneDelegate.swift */; };
 		A223083F28FE6AB800B1E4AE /* BookListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A223083E28FE6AB800B1E4AE /* BookListViewController.swift */; };
@@ -48,6 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A21DE72A2902F074001E4C47 /* PersistentContainerable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentContainerable.swift; sourceTree = "<group>"; };
 		A223083728FE6AB800B1E4AE /* BookStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A223083A28FE6AB800B1E4AE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A223083C28FE6AB800B1E4AE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 			children = (
 				A260672E28FEF2FE00BC8761 /* UserDefault.swift */,
 				A260673328FEFC8500BC8761 /* BookStore.xcdatamodeld */,
+				A21DE72A2902F074001E4C47 /* PersistentContainerable.swift */,
 			);
 			path = Local;
 			sourceTree = "<group>";
@@ -354,6 +357,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A21DE72B2902F074001E4C47 /* PersistentContainerable.swift in Sources */,
 				A260672128FEB24800BC8761 /* BookCategory.swift in Sources */,
 				A260672328FEB32E00BC8761 /* Array+Extensions.swift in Sources */,
 				A260673528FEFC8500BC8761 /* BookStore.xcdatamodeld in Sources */,

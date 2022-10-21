@@ -11,6 +11,8 @@ import CoreData
 
 final class BookListViewController: UIViewController {
     
+    typealias BookListCollectionViewCellItem = BookListCollectionViewCell.Item
+    
     // MARK: - UIComponents
     
     private let navigationView: UIView = {
@@ -62,6 +64,7 @@ final class BookListViewController: UIViewController {
     
     
     // MARK: - Properties
+    
     private var bookModels: [Book] {
         didSet {
             self.listCollectionView.reloadData()
@@ -70,12 +73,15 @@ final class BookListViewController: UIViewController {
         }
     }
     private let numberFormatter: BookStoreNumberFormatter
+    private let persistentContainer: PersistentContainerable
     
     // MARK: - LifeCycles
     
     init(
-        numberFormatter: BookStoreNumberFormatter = BookStoreNumberFormatter()
+        numberFormatter: BookStoreNumberFormatter = BookStoreNumberFormatter(),
+        persistentContainer: PersistentContainerable
     ) {
+        self.persistentContainer = persistentContainer
         self.numberFormatter = numberFormatter
         self.bookModels = []
         super.init(nibName: nil, bundle: nil)
@@ -98,18 +104,7 @@ final class BookListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        guard
-            let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else {
-            return
-        }
-        let context = sceneDelegate.persistentContainer.viewContext
-        
-        do {
-            let contact = try context.fetch(Book.fetchRequest()) as? [Book] ?? []
-            self.bookModels = contact
-        } catch (let error) {
-            print(error.localizedDescription)
-        }
+        self.fetchBookModels()
     }
     
     deinit { debugPrint("\(self) deinit") }
@@ -119,6 +114,12 @@ final class BookListViewController: UIViewController {
 // MARK: - Private functions
 
 extension BookListViewController {
+    
+    private func fetchBookModels() {
+        let context = self.persistentContainer.context
+        let bookModels = try? context.fetch(Book.fetchRequest()) as? [Book]
+        self.bookModels = bookModels ?? []
+    }
 
     private func updateTotalPrice(_ prices: [String]) {
         let priceInt = prices.compactMap(self.numberFormatter.convert(decimalString:))
@@ -186,6 +187,31 @@ extension BookListViewController {
             make.trailing.equalToSuperview().inset(30)
         }
     }
+    
+    private func configureBookItem(_ bookModel: Book) -> BookListCollectionViewCellItem? {
+        guard let name = bookModel.name,
+              let category = bookModel.category,
+              let publishedDate = bookModel.publishedDate,
+              let price = bookModel.price else { return nil }
+        return BookListCollectionViewCellItem(
+            name: name,
+            category: category,
+            publishedDate: publishedDate,
+            price: price
+        )
+    }
+    
+    private func didTapDeleteButton(at indexPath: IndexPath) {
+        guard let book = self.bookModels[safe: indexPath.item] else { return }
+        do {
+            self.persistentContainer.context.delete(book)
+            try self.persistentContainer.context.save()
+            print("성공~")
+            self.bookModels.remove(at: indexPath.item)
+        } catch (let error) {
+            print(error.localizedDescription)
+        }
+    }
 }
 
 
@@ -203,9 +229,20 @@ extension BookListViewController: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: BookListCollectionViewCell.self), for: indexPath) as? BookListCollectionViewCell else { return .init() }
-        guard let book = self.bookModels[safe: indexPath.item] else { return .init() }
-        cell.configure(bookName: book.name ?? "", category: book.category ?? "", date: book.publishedDate ?? "", price: book.price ?? "")
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: String(describing: BookListCollectionViewCell.self),
+            for: indexPath
+        ) as? BookListCollectionViewCell else { return .init() }
+        
+        guard let book = self.bookModels[safe: indexPath.item],
+              let cellItem = self.configureBookItem(book) else { return .init() }
+    
+        cell.configure(
+            item: cellItem,
+            didTapDeleteButton: { [weak self] in
+                self?.didTapDeleteButton(at: indexPath)
+            }
+        )
         return cell
     }
 }
@@ -216,8 +253,14 @@ extension BookListViewController: UICollectionViewDelegate {
     
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
+
 extension BookListViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
         CGSize(width: collectionView.bounds.width, height: 74)
     }
 }
@@ -231,8 +274,13 @@ import SwiftUI
 struct BookListViewControllerPresentable: UIViewControllerRepresentable {
     typealias UIViewControllerType = BookListViewController
     
+    final class MockPersistentContainer: PersistentContainerable {
+        var context: ManagedObjectContextable { self.viewContext }
+        var viewContext: NSManagedObjectContext = .init(.mainQueue)
+    }
+    
     func makeUIViewController(context: Context) -> BookListViewController {
-        BookListViewController()
+        BookListViewController(persistentContainer: MockPersistentContainer())
     }
     
     func updateUIViewController(

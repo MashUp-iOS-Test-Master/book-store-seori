@@ -21,7 +21,7 @@ final class SceneDelegate: UIResponder,
         guard let windowScene = (scene as? UIWindowScene) else { return }
         self.window = UIWindow(windowScene: windowScene)
         
-        let rootViewController = UINavigationController(rootViewController: BookListViewController())
+        let rootViewController = UINavigationController(rootViewController: BookListViewController(persistentContainer: self.persistentContainer))
         self.window?.rootViewController = rootViewController
         self.window?.makeKeyAndVisible()
     }
@@ -63,4 +63,3 @@ final class SceneDelegate: UIResponder,
         }
     }
 }
-
