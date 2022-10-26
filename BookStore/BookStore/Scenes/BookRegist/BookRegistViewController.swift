@@ -72,6 +72,7 @@ final class BookRegistViewController: UIViewController {
     private let categories: [BookCategory]
     private let dateFormatter: BookStoreDateFormmater
     private let numberFormatter: BookStoreNumberFormatter
+    private let persistentContainer: PersistentContainerable
     
     // MARK: - LifeCycles
     
@@ -89,10 +90,12 @@ final class BookRegistViewController: UIViewController {
     }
    
     init(
+        persistentContainer: PersistentContainerable,
         categories: [BookCategory] = BookCategory.allCases,
         dateFormatter: BookStoreDateFormmater = BookStoreDateFormmater(),
         numberFormatter: BookStoreNumberFormatter = BookStoreNumberFormatter()
     ) {
+        self.persistentContainer = persistentContainer
         self.categories = categories
         self.dateFormatter = dateFormatter
         self.numberFormatter = numberFormatter
@@ -277,6 +280,17 @@ extension BookRegistViewController: UIPickerViewDelegate {
     }
 }
 
+// MARK: - UITextFieldDelegate
+
+extension BookRegistViewController: UITextFieldDelegate {
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        let number = Int(textField.text ?? "") ?? 0
+        guard let decimalNumber = self.numberFormatter.convert(number: number) else { return }
+        self.bookPriceTextField.text = decimalNumber
+    }
+}
+
 
 // MARK: - Preview
 
@@ -286,8 +300,13 @@ import SwiftUI
 struct BookRegistViewControllerPresentable: UIViewControllerRepresentable {
     typealias UIViewControllerType = BookRegistViewController
     
+    final class MockPersistentContainer: PersistentContainerable {
+        var context: ManagedObjectContextable { self.viewContext }
+        var viewContext: NSManagedObjectContext = .init(.mainQueue)
+    }
+    
     func makeUIViewController(context: Context) -> BookRegistViewController {
-        BookRegistViewController()
+        BookRegistViewController(persistentContainer: MockPersistentContainer())
     }
     
     func updateUIViewController(
@@ -298,26 +317,17 @@ struct BookRegistViewControllerPresentable: UIViewControllerRepresentable {
     }
 }
 
-struct BookRegistViewControllerPreviews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            BookRegistViewControllerPresentable()
-                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
+//struct BookRegistViewControllerPreviews: PreviewProvider {
+//    static var previews: some View {
+//        Group {
+//            BookRegistViewControllerPresentable()
+//                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
 //            BookRegistViewControllerPresentable()
 //                .previewDevice(PreviewDevice(rawValue: "iPhone 12"))
-        }
-        
-    }
-}
+//        }
+//
+//    }
+//}
 
 #endif
 
-
-extension BookRegistViewController: UITextFieldDelegate {
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        let number = Int(textField.text ?? "") ?? 0
-        guard let decimalNumber = self.numberFormatter.convert(number: number) else { return }
-        self.bookPriceTextField.text = decimalNumber
-    }
-}

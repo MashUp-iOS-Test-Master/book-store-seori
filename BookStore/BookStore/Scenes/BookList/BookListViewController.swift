@@ -134,7 +134,9 @@ extension BookListViewController {
     
     @objc
     private func didTapRegistButton(_ sender: UIButton) {
-        let registViewController = BookRegistViewController()
+        let registViewController = BookRegistViewController(
+            persistentContainer: self.persistentContainer
+        )
         self.navigationController?.pushViewController(registViewController, animated: true)
     }
     
@@ -290,17 +292,17 @@ struct BookListViewControllerPresentable: UIViewControllerRepresentable {
         
     }
 }
-
-struct BookListViewControllerPreviews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            BookListViewControllerPresentable()
-                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
-            BookListViewControllerPresentable()
-                .previewDevice(PreviewDevice(rawValue: "iPhone 12"))
-        }
-       
-    }
-}
+//
+//struct BookListViewControllerPreviews: PreviewProvider {
+//    static var previews: some View {
+////        Group {
+////            BookListViewControllerPresentable()
+////                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
+////            BookListViewControllerPresentable()
+////                .previewDevice(PreviewDevice(rawValue: "iPhone 12"))
+////        }
+//
+//    }
+//}
 
 #endif
