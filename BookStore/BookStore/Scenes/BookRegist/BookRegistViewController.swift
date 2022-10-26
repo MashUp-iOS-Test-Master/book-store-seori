@@ -56,6 +56,18 @@ final class BookRegistViewController: UIViewController {
         return button
     }()
     
+    private let navigationView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
+    }()
+    
+    private let navigationBackButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "back_btn"), for: .normal)
+        return button
+    }()
+    
     private let categoryPickerView = UIPickerView()
     private let datePickerView = UIDatePicker()
     
@@ -81,6 +93,7 @@ final class BookRegistViewController: UIViewController {
         self.view.backgroundColor = .white
         self.setViewHierarhcy()
         self.setViewsConstraints()
+        self.configure(self.navigationBackButton)
         self.configure(textFields: self.contentTextFields)
         self.bind(self.registButton)
         self.configure(self.bookPublishDateTextField, inputView: self.datePickerView)
@@ -136,6 +149,15 @@ extension BookRegistViewController {
         inputView.addTarget(self, action: #selector(self.didEndEditing(datePicker:)), for: .allEvents)
     }
     
+    private func configure(_ backbutton: UIButton) {
+        backbutton.addTarget(self, action: #selector(didTapBackButton(_:)), for: .touchUpInside)
+    }
+    
+    @objc
+    private func didTapBackButton(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     @objc
     private func didEndEditing(datePicker: UIDatePicker) {
         let convertedDate = self.dateFormatter.convert(date: datePicker.date)
@@ -144,15 +166,23 @@ extension BookRegistViewController {
     
     private func setViewHierarhcy() {
         self.contentStackView.addArrangedSubviews(self.contentTextFields)
-        self.view.addSubviews(self.contentStackView, self.registButton)
+        self.view.addSubviews(self.contentStackView, self.registButton, self.navigationView)
+        self.navigationView.addSubviews(self.navigationBackButton)
     }
     
     private func setViewsConstraints() {
+        
+        self.navigationView.snp.makeConstraints { make in
+            make.top.equalTo(self.view.safeAreaLayoutGuide)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(50)
+        }
+        
         self.contentStackView.arrangedSubviews.forEach { view in
             view.snp.makeConstraints { $0.height.equalTo(50) }
         }
         self.contentStackView.snp.makeConstraints { make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide).offset(20)
+            make.top.equalTo(self.navigationView.snp.bottom).offset(20)
             make.leading.trailing.equalToSuperview().inset(20)
         }
         
@@ -160,6 +190,12 @@ extension BookRegistViewController {
             make.height.equalTo(50)
             make.leading.trailing.equalToSuperview().inset(20)
             make.bottom.equalTo(self.view.safeAreaLayoutGuide)
+        }
+      
+        self.self.navigationBackButton.snp.makeConstraints { make in
+            make.size.equalTo(30)
+            make.leading.equalToSuperview().offset(10)
+            make.centerY.equalToSuperview()
         }
     }
     
